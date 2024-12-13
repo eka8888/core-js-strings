@@ -20,6 +20,9 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value) {
+    if (value === null || value === undefined) {
+        return 0;
+    }
     return value.length;
 }
 
@@ -105,7 +108,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
 function removeLeadingWhitespaces(value) {
-    return value.trim();
+    return value.replace(/^\s+/, '');
 }
 
 /**
@@ -119,7 +122,7 @@ function removeLeadingWhitespaces(value) {
  *   removeTrailingWhitespaces('cat ') => 'cat'
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
-function removeTrailingWhitespaces( /* value */ ) {
+function removeTrailingWhitespaces(value) {
     return value.replace(/^\s+/, '');
 }
 
@@ -137,7 +140,7 @@ function removeTrailingWhitespaces( /* value */ ) {
  *   repeatString('abc', -2) => ''
  */
 function repeatString(str, times) {
-    return str.repeat(times);
+    return times > 0 ? str.repeat(times) : '';
 }
 
 /**
@@ -306,14 +309,11 @@ function containsSubstring(str, substring) {
 function countVowels(str) {
     const vowels = 'aeiouyAEIOUY'; // A string containing all vowels, both lowercase and uppercase
     let count = 0;
-
-    // Iterate through each character in the string
-    for (let i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i += 1) {
         if (vowels.includes(str[i])) {
-            count++;
+            count += 1;
         }
     }
-
     return count;
 }
 
@@ -332,19 +332,16 @@ function countVowels(str) {
  */
 function isPalindrome(str) {
     let normalizedStr = '';
-
-    for (let i = 0; i < str.length; i++) {
+    for (let i = 0; i < str.length; i += 1) {
         const char = str[i].toLowerCase();
         if ((char >= 'a' && char <= 'z') || (char >= '0' && char <= '9')) {
             normalizedStr += char;
         }
     }
-
     let reversedStr = '';
-    for (let i = normalizedStr.length - 1; i >= 0; i--) {
+    for (let i = normalizedStr.length - 1; i >= 0; i -= 1) {
         reversedStr += normalizedStr[i];
     }
-
     return normalizedStr === reversedStr;
 }
 
@@ -365,11 +362,11 @@ function findLongestWord(sentence) {
 
     let longestWord = '';
 
-    for (let word of words) {
+    words.forEach((word) => {
         if (word.length > longestWord.length) {
             longestWord = word;
         }
-    }
+    });
 
     return longestWord;
 }
